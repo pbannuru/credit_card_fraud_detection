@@ -13,8 +13,8 @@ def index():
     except Exception as e:
         martsales=martsalesException(e,sys)
         logging.info(martsales.error_message)
-        logging.info("this logging test")
-    return "starting Machine learning"
+        logging.info("this logging test1")
+        return "starting Machine learning"
 
 
 
