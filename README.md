@@ -71,6 +71,17 @@ pip install six
 
 Data Drift: When your datset stats gets change we call it as data drift
 
+
+git branch <newbranchname>
+
+git checkout <newbranchname>
+
+git push origin <newbranchname>
+
+
+
+
+
 STRUCTURE OF THE PROJECT
 
 |-- Project
