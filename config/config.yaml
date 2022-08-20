@@ -1,9 +1,9 @@
 training_pipeline_config:
-  pipeline_name: housing
+  pipeline_name: martsales
   artifact_dir: artifact
 
 data_ingestion_config:
-  dataset_download_url: https://github.com/pbannuru/PROJECT-DATASETS/tree/main/martsales
+  dataset_download_url: https://www.kaggle.com/datasets/brijbhushannanda1979/bigmart-sales-data/download?datasetVersionNumber=1
   raw_data_dir: raw_data
   tgz_download_dir: tgz_data
   ingested_dir: ingested_data
