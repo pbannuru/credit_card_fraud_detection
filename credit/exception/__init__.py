@@ -1,11 +1,11 @@
 import os
 import sys
 
-class martsalesException(Exception):
+class creditException(Exception):
     
     def __init__(self, error_message:Exception,error_detail:sys):
         super().__init__(error_message)
-        self.error_message=martsalesException.get_detailed_error_message(error_message=error_message,
+        self.error_message=creditException.get_detailed_error_message(error_message=error_message,
                                                                        error_detail=error_detail
                                                                         )
 
@@ -33,4 +33,4 @@ class martsalesException(Exception):
 
 
     def __repr__(self) -> str:
-        return martsalesException.__name__.str()
+        return creditException.__name__.str()

@@ -1,10 +1,10 @@
 import yaml
-from martsales.exception import martsalesException
+from credit.exception import creditException
 import os,sys
 import numpy as np
 import dill
 import pandas as pd
-from martsales.constant import *
+from credit.constant import *
 
 
 def write_yaml_file(file_path:str,data:dict=None):
@@ -19,7 +19,7 @@ def write_yaml_file(file_path:str,data:dict=None):
             if data is not None:
                 yaml.dump(data,yaml_file)
     except Exception as e:
-        raise martsalesException(e,sys)
+        raise creditException(e,sys)
 
 
 def read_yaml_file(file_path:str)->dict:
@@ -31,4 +31,4 @@ def read_yaml_file(file_path:str)->dict:
         with open(file_path, 'rb') as yaml_file:
             return yaml.safe_load(yaml_file)
     except Exception as e:
-        raise martsalesException(e,sys) from e
+        raise creditException(e,sys) from e

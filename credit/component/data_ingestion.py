@@ -1,14 +1,14 @@
-from martsales.entity.config_entity import DataIngestionConfig
+from credit.entity.config_entity import DataIngestionConfig
 import sys,os
-from martsales.exception import martsalesException
-from martsales.logger import logging
-from martsales.entity.artifact_entity import DataIngestionArtifact
+from credit.exception import creditException
+from credit.logger import logging
+from credit.entity.artifact_entity import DataIngestionArtifact
 import tarfile # extract zip files
 import numpy as np
 from six.moves import urllib
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
-
+from credit.constant import COLUMN_DEF_PAY_NEXT_MONTH,COLUMN_DEFAULT_PAY,COLUMN_ID
 class DataIngestion:
 
     def __init__(self,data_ingestion_config:DataIngestionConfig ):
@@ -17,62 +17,49 @@ class DataIngestion:
             self.data_ingestion_config = data_ingestion_config
 
         except Exception as e:
-            raise martsalesException(e,sys)
+            raise creditException(e,sys)
     
 
-    def download_martsales_data(self,) -> str:
+    def download_credit_data(self,) -> str:
         try:
             #extraction remote url to download dataset
             download_url = self.data_ingestion_config.dataset_download_url
 
             #folder location to download file
-            tgz_download_dir = self.data_ingestion_config.tgz_download_dir
+            raw_data_dir = self.data_ingestion_config.tgz_download_dir
             
-            if os.path.exists(tgz_download_dir):
-                os.remove(tgz_download_dir)
-
-            os.makedirs(tgz_download_dir,exist_ok=True)
-
-            martsales_file_name = os.path.basename(download_url)
-
-            tgz_file_path = os.path.join(tgz_download_dir, martsales_file_name)
-
-            logging.info(f"Downloading file from :[{download_url}] into :[{tgz_file_path}]")
-            urllib.request.urlretrieve(download_url, tgz_file_path)
-            logging.info(f"File :[{tgz_file_path}] has been downloaded successfully.")
-            return tgz_file_path
-
-        except Exception as e:
-            raise martsalesException(e,sys) from e
-
-    def extract_tgz_file(self,tgz_file_path:str):
-        try:
-            raw_data_dir = self.data_ingestion_config.raw_data_dir
-
             if os.path.exists(raw_data_dir):
                 os.remove(raw_data_dir)
 
             os.makedirs(raw_data_dir,exist_ok=True)
 
-            logging.info(f"Extracting tgz file: [{tgz_file_path}] into dir: [{raw_data_dir}]")
-            with tarfile.open(tgz_file_path) as martsales_tgz_file_obj:
-                martsales_tgz_file_obj.extractall(path=raw_data_dir)
-            logging.info(f"Extraction completed")
+            credit_file_name = os.path.basename(download_url)
+
+            raw_file_path = os.path.join(raw_data_dir, credit_file_name)
+
+            logging.info(f"Downloading file from :[{download_url}] into :[{raw_file_path}]")
+            urllib.request.urlretrieve(download_url, raw_file_path)
+            logging.info(f"File :[{raw_file_path}] has been downloaded successfully.")
+            return raw_file_path
 
         except Exception as e:
-            raise martsalesException(e,sys) from e
+            raise creditException(e,sys) from e
+
+  
     
     def split_data_as_train_test(self) -> DataIngestionArtifact:
         try:
             raw_data_dir = self.data_ingestion_config.raw_data_dir
 
-            file_name = os.listdir(raw_data_dir)[2]
+            file_name = os.listdir(raw_data_dir)[0]
 
-            martsales_file_path = os.path.join(raw_data_dir,file_name)
+            credit_file_path = os.path.join(raw_data_dir,file_name)
 
 
-            logging.info(f"Reading csv file: [{martsales_file_path}]")
-            martsales_data_frame = pd.read_csv(martsales_file_path)
+            logging.info(f"Reading csv file: [{credit_file_path}]")
+            credit_data_frame = pd.read_csv(credit_file_path)
+            credit_data_frame = credit_data_frame.rename(columns={COLUMN_DEF_PAY_NEXT_MONTH: COLUMN_DEFAULT_PAY})
+            credit_data_frame.drop(COLUMN_ID,axis=1,inplace = True)
 
         
 
@@ -82,9 +69,9 @@ class DataIngestion:
 
             split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
 
-            for train_index,test_index in split.split(martsales_data_frame, martsales_data_frame["Outlet_Type"]):
-                strat_train_set = martsales_data_frame.loc[train_index]
-                strat_test_set = martsales_data_frame.loc[test_index]
+            for train_index,test_index in split.split(credit_data_frame, credit_data_frame["default_pay"]):
+                strat_train_set = credit_data_frame.loc[train_index]
+                strat_test_set = credit_data_frame.loc[test_index]
 
             train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir,
                                             file_name)
@@ -112,15 +99,15 @@ class DataIngestion:
             return data_ingestion_artifact
 
         except Exception as e:
-            raise martsalesException(e,sys) from e
+            raise creditException(e,sys) from e
 
     def initiate_data_ingestion(self)-> DataIngestionArtifact:
         try:
-            tgz_file_path =  self.download_martsales_data()
-            self.extract_tgz_file(tgz_file_path=tgz_file_path)
+            tgz_file_path =  self.download_credit_data()
+            
             return self.split_data_as_train_test()
         except Exception as e:
-            raise martsalesException(e,sys) from e
+            raise creditException(e,sys) from e
     
 
 

@@ -46,7 +46,7 @@ HEROKU_APP_NAME = mlcicdapp
 
 BUILD DOCKER IMAGE
 
-docker build -t martsales:end-to-end .
+docker build -t credit:end-to-end .
 Note: Image name for docker must be lowercase
 
 To list docker image
@@ -89,7 +89,7 @@ STRUCTURE OF THE PROJECT
         |-- config.yaml
         |-- schema.yaml
         |-- model.yaml
-    |-- martsales (Project folder)
+    |-- credit (Project folder)
         |-- __init__.py
         |--constant (All the hardcoded values)
             |--__init__.py

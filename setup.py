@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 from typing import List
 
 #Declaring variables for setup functions
-PROJECT_NAME="martsales"
+PROJECT_NAME="credit"
 VERSION="0.0.1"
 AUTHOR="pavan kumar"
 DESRCIPTION="This is a Machine Learning End to End Project"

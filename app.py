@@ -1,6 +1,6 @@
 from flask import Flask
-from martsales.logger import logging
-from martsales.exception import martsalesException
+from credit.logger import logging
+from credit.exception import creditException
 import sys
 app = Flask(__name__)
 
@@ -11,8 +11,8 @@ def index():
         raise Exception("we are testing Exception")
         logging.info("exception test")
     except Exception as e:
-        martsales=martsalesException(e,sys)
-        logging.info(martsales.error_message)
+        credit=creditException(e,sys)
+        logging.info(credit.error_message)
         logging.info("this logging test1")
         return "starting Machine learning"
 
