@@ -52,6 +52,18 @@ class Pipeline:
                 data_ingestion_artifact=data_ingestion_artifact,
                 data_validation_artifact=data_validation_artifact
             )
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
+                                                                    data_validation_artifact=data_validation_artifact,
+                                                                    model_trainer_artifact=model_trainer_artifact)
+    
+            if model_evaluation_artifact.is_model_accepted:
+                model_pusher_artifact = self.start_model_pusher(model_eval_artifact=model_evaluation_artifact)
+                logging.info(f'Model pusher artifact: {model_pusher_artifact}')
+            else:
+                logging.info("Trained model rejected.")
+            
+            logging.info("Pipeline completed.")
         except Exception as e:
             raise creditException(e, sys) from e
 
