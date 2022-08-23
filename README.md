@@ -123,3 +123,6 @@ STRUCTURE OF THE PROJECT
     |-- requirements.txt
     |-- LICENSE
     |-- README.md
+    
+    HEROKU :APP
+    https://fraudprediction555.herokuapp.com/
