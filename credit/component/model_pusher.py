@@ -45,7 +45,7 @@ class ModelPusher:
         try:
             return self.export_model()
         except Exception as e:
-            raise CreditException(e, sys) from e
+            raise creditException(e, sys) from e
 
     def __del__(self):
         logging.info(f"{'>>' * 20}Model Pusher log completed.{'<<' * 20} ")
