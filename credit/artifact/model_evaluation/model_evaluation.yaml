@@ -1,0 +1,5 @@
+best_model:
+  model_path: C:\Users\pbann\credit\credit\artifact\model_trainer\2022-08-22-20-05-33\trained_model\model.pkl
+history:
+  2022-08-22-20-05-33:
+    model_path: C:\Users\pbann\credit\credit\artifact\model_trainer\2022-08-22-19-59-44\trained_model\model.pkl

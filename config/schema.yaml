@@ -1,38 +1,57 @@
 columns:
-  Item_Fat_Content: object
-  Item_Identifier: object
-  Item_MRP: float64
-  Item_Outlet_Sales: float64
-  Item_Type: object
-  Item_Visibility: float64
-  Item_Weight: float64
-  Outlet_Establishment_Year: int64
-  Outlet_Identifier: object
-  Outlet_Location_Type: object
-  Outlet_Size: object
-  Outlet_Type: object
+  LIMIT_BAL: float
+  SEX: int
+  EDUCATION: int
+  MARRIAGE: int
+  AGE: int
+  PAY_0: int
+  PAY_2: int
+  PAY_3: int
+  PAY_4: int
+  PAY_5: int
+  PAY_6: int
+  BILL_AMT1: float
+  BILL_AMT2: float
+  BILL_AMT3: float
+  BILL_AMT4: float
+  BILL_AMT5: float
+  BILL_AMT6: float
+  PAY_AMT1: float
+  PAY_AMT2: float
+  PAY_AMT3: float
+  PAY_AMT4: float
+  PAY_AMT5: float
+  PAY_AMT6: float
+  default_pay: int
 
-columns_cluster: 
-  - Item_Fat_Content
-  - Item_Identifier
-  - Item_MRP
-  - Item_Type
-  - Item_Visibility
-  - Item_Weight
-  - Outlet_Establishment_Year
-  - Outlet_Identifier
-  - Outlet_Location_Type
-  - Outlet_Size
-  - Outlet_Type
+target_column: default_pay
 
-categorical_columns:
-  - Item_Type
-  - Outlet_Type
+domain_value:
+  SEX:
+    - 1
+    - 2
 
 numerical_columns:
-- Item_Weight
-- Item_Visibility
-- Item_MRP
-
-
-target_column: Item_Outlet_Sales
+  - LIMIT_BAL
+  - SEX
+  - EDUCATION
+  - MARRIAGE
+  - AGE
+  - PAY_0
+  - PAY_2
+  - PAY_3
+  - PAY_4
+  - PAY_5
+  - PAY_6
+  - BILL_AMT1
+  - BILL_AMT2
+  - BILL_AMT3
+  - BILL_AMT4
+  - BILL_AMT5
+  - BILL_AMT6
+  - PAY_AMT1
+  - PAY_AMT2
+  - PAY_AMT3
+  - PAY_AMT4
+  - PAY_AMT5
+  - PAY_AMT6

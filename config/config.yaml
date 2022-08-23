@@ -1,9 +1,9 @@
 training_pipeline_config:
-  pipeline_name: housing
+  pipeline_name: credit
   artifact_dir: artifact
 
 data_ingestion_config:
-  dataset_download_url: https://github.com/pbannuru/PROJECT-DATASETS/tree/main/martsales
+  dataset_download_url: https://raw.githubusercontent.com/irenebenedetto/default-of-credit-card-clients/master/dataset/credit_cards_dataset.csv
   raw_data_dir: raw_data
   tgz_download_dir: tgz_data
   ingested_dir: ingested_data
@@ -30,7 +30,7 @@ data_transformation_config:
 model_trainer_config:
   trained_model_dir: trained_model
   model_file_name: model.pkl
-  base_accuracy: 0.5
+  base_accuracy: 0.6
   model_config_dir: config
   model_config_file_name: model.yaml
 
