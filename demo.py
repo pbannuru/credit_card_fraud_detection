@@ -5,8 +5,11 @@ from credit.logger import logging
 from credit.config.configuration import *
 def main():
     try:
-        pipeline =Pipeline()
-        pipeline.run_pipeline()
+        config_path = os.path.join("config","config.yaml")
+        pipeline =Pipeline(configuration(config_file_path=config_path))
+        # pipeline.run_pipeline()
+        pipeline.start()
+        logging.info("main function completed")
         # data_validation_config = configuration().get_data_validation_config()
         # print(data_validation_config)
 
